@@ -11,7 +11,7 @@ To install the script select project target, then click on Build Phases. If you 
 Select "New Run Script Phase" in the popup menu. Expand the new Run Script section and verify that /bin/sh is in the Shell text field. Copy the contents of the Xcode Release Versioning Script.txt into the text field that says "Type a script or drag a script file from your workspace to insert its path". The Run Script section should look like this:
 ![./img/img4.png](./img/img4.png)
 When you build the app for the simulator or for a device the build number will be incremented
-When you archive the app for iTunes or Enterpirse Distribution the Version number will be incremented (1.0 -> 1.1) and the build number will be reset to 0.
+When you archive the app for iTunes or Enterpirse Distribution the Version number will be incremented (1.0 &#8658; 1.1) and the build number will be reset to 0.
 
 One caveat. The Version and Build numbers are incremented **after** the build or achive.
 ![./img/img6.png](./img/img6.png)
