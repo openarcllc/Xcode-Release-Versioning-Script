@@ -1,0 +1,27 @@
+conf=${CONFIGURATION}
+arch=${ARCHS:0:4}
+buildPlist=${INFOPLIST_FILE}
+echo "${INFOPLIST_FILE}"
+
+# Only increase the build number on Device and AdHoc/AppStore build
+if [ $conf == "Release" ]
+then
+
+echo "Increment version number."
+bundleShortVersion=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "$buildPlist" | /usr/bin/perl -pe 's/(\d+\.)(\d+)/$1.($2+1)/eg'`
+echo $bundleShortVersion;
+/usr/libexec/PListBuddy -c "Set :CFBundleShortVersionString $bundleShortVersion" "$buildPlist"
+
+echo "Reset build number to 0."
+bundleVersion=`/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "$buildPlist" | /usr/bin/perl -pe 's/(\d+)/($1-$1)/eg'`
+echo $bundleVersion;
+/usr/libexec/PListBuddy -c "Set :CFBundleVersion $bundleVersion" "$buildPlist"
+
+else
+
+echo "Increment build number."
+bundleVersion=`/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "$buildPlist" | /usr/bin/perl -pe 's/(\d+)/($1+1)/eg'`
+echo $bundleVersion;
+/usr/libexec/PListBuddy -c "Set :CFBundleVersion $bundleVersion" "$buildPlist"
+
+fi
